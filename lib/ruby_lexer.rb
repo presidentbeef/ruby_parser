@@ -1236,6 +1236,12 @@ class RubyLexer
           end
         end
 
+        if src.scan(/:(?!:)/)
+            result = :tHASHKEY
+            token << src.matched
+            self.lex_state = :expr_end
+        end
+
         result ||= if token =~ /^[A-Z]/ then
                      :tCONSTANT
                    else

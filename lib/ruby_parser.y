@@ -16,7 +16,7 @@ token kCLASS kMODULE kDEF kUNDEF kBEGIN kRESCUE kENSURE kEND kIF kUNLESS
       tTILDE tPERCENT tDIVIDE tPLUS tMINUS tLT tGT tPIPE tBANG tCARET
       tLCURLY tRCURLY tBACK_REF2 tSYMBEG tSTRING_BEG tXSTRING_BEG tREGEXP_BEG
       tWORDS_BEG tAWORDS_BEG tSTRING_DBEG tSTRING_DVAR tSTRING_END tSTRING
-      tSYMBOL tNL tEH tCOLON tCOMMA tSPACE tSEMI tLAST_TOKEN
+      tSYMBOL tNL tEH tCOLON tCOMMA tSPACE tSEMI tLAST_TOKEN tHASHKEY
 
 prechigh
   right    tBANG tTILDE tUPLUS
@@ -1765,7 +1765,11 @@ xstring_contents: none
                       result = list
                     }
 
-           assoc: arg_value tASSOC arg_value
+           assoc: tHASHKEY arg_value
+                    {
+                      result = s(:array, s(:lit, val[0][0..-2].to_sym), val[1])
+                    }
+                | arg_value tASSOC arg_value
                     {
                       result = s(:array, val[0], val[2])
                     }
