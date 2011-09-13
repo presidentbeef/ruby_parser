@@ -681,4 +681,13 @@ class TestRubyParser < RubyParserTestCase
 
     assert_parse rb, pt
   end
+
+  def test_parse_hash_array_value__19
+    rb = "{ x: [:hello] }"
+    pt = s(:hash,
+           s(:lit, (:x)),
+           s(:array, s(:lit, :hello)))
+
+    assert_parse rb, pt
+  end
 end

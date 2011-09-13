@@ -77,6 +77,15 @@ class TestRubyLexer < MiniTest::Unit::TestCase
     # TODO: verify warning
   end
 
+  def test_yylex_array_hash_value
+    util_lex_token("{ a: [:blah] }", 
+                   :tLBRACE, "{",
+                   :tHASHKEY, "a:",
+                   :tLBRACK, "[",
+                   :tSYMBOL, "blah",
+                   :tRBRACK, "]",
+                   :tRCURLY, "}")
+  end
   def test_yylex_ambiguous_uplus
     util_lex_token("m +3",
                    :tIDENTIFIER, "m",
