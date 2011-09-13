@@ -690,4 +690,16 @@ class TestRubyParser < RubyParserTestCase
 
     assert_parse rb, pt
   end
+
+
+  def test_parse_hash_hash_value__19
+    rb = "{ a: { b: 1 } }"
+    pt = s(:hash,
+           s(:lit, :a),
+           s(:hash,
+             s(:lit, :b),
+             s(:lit, 1)))
+
+    assert_parse rb, pt
+  end
 end

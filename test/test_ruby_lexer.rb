@@ -86,6 +86,18 @@ class TestRubyLexer < MiniTest::Unit::TestCase
                    :tRBRACK, "]",
                    :tRCURLY, "}")
   end
+
+  def test_yylex_hash_hash_value
+    util_lex_token("{ a: { b: 1 } }",
+                   :tLBRACE, "{",
+                   :tHASHKEY, "a:",
+                   :tLBRACE, "{",
+                   :tHASHKEY, "b:",
+                   :tINTEGER, 1,
+                   :tRCURLY, "}",
+                   :tRCURLY, "}")
+  end
+
   def test_yylex_ambiguous_uplus
     util_lex_token("m +3",
                    :tIDENTIFIER, "m",
