@@ -1239,7 +1239,8 @@ class RubyLexer
         if src.scan(/:(?!:)/)
             result = :tHASHKEY
             token << src.matched
-            self.lex_state = :expr_end
+            self.yacc_value = token
+            return result
         end
 
         result ||= if token =~ /^[A-Z]/ then
